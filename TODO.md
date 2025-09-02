@@ -1,38 +1,25 @@
-# Backend URL Update Task
+# TODO: Implement Search Functionality in Navbar
 
-## Overview
-Update all backend API URLs in the frontend from the old URLs to the new backend URL: `https://project-backend-n78k.onrender.com`
+## Tasks
+- [x] Modify Home.jsx to add separate inputQuery state for search input
+- [x] Update Navbar props in Home.jsx to use inputQuery and add onSearch handler
+- [ ] Test the search functionality to ensure it works on click/enter
 
-## Files to Update
+## Information Gathered
+- Navbar.jsx already has search input, onChange, onKeyDown for Enter, and onClick for search icon
+- Home.jsx currently has real-time search filtering based on searchQuery state
+- To implement "search on search", separate the input from the actual search query
 
-### 1. frontend/src/pages/Home.jsx
-- [x] Update `http://localhost:3000/` to `https://project-backend-n78k.onrender.com/`
-- [x] Update `http://localhost:3000/cart/add/${elem._id}` to `https://project-backend-n78k.onrender.com/cart/add/${elem._id}`
+## Plan
+- Add `inputQuery` state in Home.jsx
+- Pass `inputQuery` as `searchQuery` prop to Navbar
+- Pass `setInputQuery` as `setSearchQuery` prop to Navbar
+- Add `onSearch` prop that sets `searchQuery` to `inputQuery`
+- Keep `filteredProducts` using `searchQuery` for filtering
 
-### 2. frontend/src/pages/ProductDetail.jsx
-- [x] Update `https://shopy-backend-gwyc.onrender.com/products/${productId}` to `https://project-backend-n78k.onrender.com/products/${productId}`
-- [x] Update `https://shopy-backend-gwyc.onrender.com/cart/add/${product._id}` to `https://project-backend-n78k.onrender.com/cart/add/${product._id}`
+## Dependent Files
+- frontend/src/pages/Home.jsx
 
-### 3. frontend/src/pages/CartPage.jsx
-- [x] Update `https://shopy-backend-gwyc.onrender.com/cart` to `https://project-backend-n78k.onrender.com/cart`
-- [x] Update `http://localhost:3000/cart/increase/${itemId}` to `https://project-backend-n78k.onrender.com/cart/increase/${itemId}`
-- [x] Update `http://localhost:3000/cart/decrease/${itemId}` to `https://project-backend-n78k.onrender.com/cart/decrease/${itemId}`
-- [x] Update `http://localhost:3000/cart/remove/${itemId}` to `https://project-backend-n78k.onrender.com/cart/remove/${itemId}`
-
-### 4. frontend/src/pages/SignInPage.jsx
-- [x] Update `http://localhost:3000/SignIn/ValidateUser` to `https://project-backend-n78k.onrender.com/SignIn/ValidateUser`
-
-### 5. frontend/src/pages/SignUpPage.jsx
-- [x] Update `http://localhost:3000/SignUp/AddUser` to `https://project-backend-n78k.onrender.com/SignUp/AddUser`
-
-### 6. frontend/src/pages/userspage/UserHome.jsx
-- [x] Update `http://localhost:3000/` to `https://project-backend-n78k.onrender.com/`
-
-### 7. frontend/src/pages/userspage/UserProductDetail.jsx
-- [x] Update `http://localhost:3000/products/"+productId` to `https://project-backend-n78k.onrender.com/products/"+productId`
-
-## Progress
-- [x] Plan created
-- [x] Files identified
-- [x] Updates completed
-- [ ] Testing completed
+## Followup Steps
+- Test the search by typing in navbar and clicking search icon or pressing Enter
+- Verify that products filter only after triggering search

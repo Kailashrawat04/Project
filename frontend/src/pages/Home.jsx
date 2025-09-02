@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 const Home = () => {
   const [productData, setProductData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [inputQuery, setInputQuery] = useState("");
   const [sortOption, setSortOption] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [wishlist, setWishlist] = useState([]);
@@ -58,7 +59,7 @@ const Home = () => {
 
   return (
     <div className="home-wrapper">
-      <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <Navbar searchQuery={inputQuery} setSearchQuery={setInputQuery} onSearch={() => setSearchQuery(inputQuery)} />
 
       {/* Filters and Sort */}
       <div className="filters">
