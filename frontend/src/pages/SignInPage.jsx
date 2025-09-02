@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import "./AuthPages.css";
 import "./SignInPage.css";
 
 const SignInPage = () => {
     const Navigate = useNavigate();
+    const { login } = useAuth();
     const onSignUpButtonClick = () => {
         Navigate("/")
     }
@@ -21,11 +23,14 @@ const SignInPage = () => {
         await axios.post("http://localhost:3000/SignIn/ValidateUser", { FormData })
             .then((res) => {
                 if (res.data.out) {
+                    // Store user data and token in auth context
+                    login(res.data.user, res.data.token);
                     Navigate("/Home")
                 }
             })
             .catch((err) => {
                 console.log(err)
+                alert("Login failed. Please check your credentials.")
             })
     }
    return (

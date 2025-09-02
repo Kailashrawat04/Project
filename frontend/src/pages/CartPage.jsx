@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import "./CartPage.css";
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -50,182 +52,140 @@ const CartPage = () => {
     }
   };
 
+  const removeItem = async (itemId) => {
+    try {
+      await axios.delete(`http://localhost:3000/cart/remove/${itemId}`);
+      fetchCartItems();
+    } catch (error) {
+      console.error("Error removing item:", error);
+    }
+  };
+
   const goToCheckout = () => {
     navigate("/checkout");
   };
 
+  const calculateTotal = () => {
+    return cartItems.reduce((total, item) => {
+      const price = item.productId?.price || 0;
+      return total + (price * item.quantity);
+    }, 0);
+  };
+
+  const calculateSubtotal = () => {
+    return calculateTotal();
+  };
+
+  const deliveryFee = calculateTotal() > 500 ? 0 : 40;
+
   return (
-    <div style={{ maxWidth: "1100px", margin: "40px auto", padding: "20px" }}>
-      <Navbar />
-      <h1
-        style={{
-          textAlign: "center",
-          marginBottom: "40px",
-          fontSize: "3rem",
-          fontWeight: "bold",
-          background: "linear-gradient(90deg, #00f2ff, #ff00aa)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          textShadow: "0 0 20px rgba(0, 242, 255, 0.7)",
-        }}
-      >
-        🛒 Your Cart
-      </h1>
-
-      {cartItems.length === 0 ? (
-        <p style={{ textAlign: "center", fontSize: "20px", color: "#bbb" }}>
-          Your cart is empty.
-        </p>
-      ) : (
-        <>
-          {cartItems.map((item) => {
-            const product = item.productId || {};
-            return (
-              <div
-                key={item._id}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  borderRadius: "16px",
-                  padding: "20px",
-                  marginBottom: "25px",
-                  background: "rgba(255, 255, 255, 0.06)",
-                  backdropFilter: "blur(12px)",
-                  border: "1px solid rgba(0, 242, 255, 0.3)",
-                  boxShadow: "0 4px 30px rgba(0, 242, 255, 0.1)",
-                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.transform = "scale(1.03)";
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 40px rgba(255, 0, 170, 0.3)";
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.transform = "scale(1)";
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 30px rgba(0, 242, 255, 0.1)";
-                }}
-              >
-                {/* Product Image */}
-                <img
-                  src={product.image || "https://via.placeholder.com/100"}
-                  alt={product.title || "Product Image"}
-                  style={{
-                    width: "110px",
-                    height: "110px",
-                    objectFit: "cover",
-                    borderRadius: "12px",
-                    marginRight: "20px",
-                    border: "2px solid rgba(0, 242, 255, 0.4)",
-                  }}
-                />
-
-                {/* Product Info */}
-                <div style={{ flex: 1 }}>
-                  <h3
-                    style={{
-                      margin: "0 0 8px 0",
-                      fontWeight: "600",
-                      color: "#fff",
-                    }}
-                  >
-                    {product.title || "No Title"}
-                  </h3>
-                  <p style={{ margin: "0", color: "#ccc" }}>
-                    Price:{" "}
-                    <b style={{ color: "#00f2ff" }}>
-                      {product.price && product.price !== "N/A"
-                        ? `₹${product.price}`
-                        : "N/A"}
-                    </b>
-                  </p>
-                  <p style={{ margin: "6px 0", color: "#aaa" }}>
-                    Quantity: {item.quantity}
-                  </p>
-                </div>
-
-                {/* Quantity Buttons */}
-                <div>
-                  <button
-                    onClick={() => increaseQuantity(item._id)}
-                    style={{
-                      background: "rgba(0, 255, 170, 0.15)",
-                      color: "#00ffaa",
-                      border: "1px solid #00ffaa",
-                      padding: "10px 14px",
-                      borderRadius: "8px",
-                      cursor: "pointer",
-                      marginRight: "10px",
-                      fontSize: "18px",
-                      transition: "0.3s",
-                    }}
-                    onMouseOver={(e) =>
-                      (e.target.style.background = "#00ffaa")
-                    }
-                    onMouseOut={(e) =>
-                      (e.target.style.background = "rgba(0, 255, 170, 0.15)")
-                    }
-                  >
-                    +
-                  </button>
-                  <button
-                    onClick={() => decreaseQuantity(item._id)}
-                    style={{
-                      background: "rgba(255, 0, 90, 0.15)",
-                      color: "#ff3b6b",
-                      border: "1px solid #ff3b6b",
-                      padding: "10px 14px",
-                      borderRadius: "8px",
-                      cursor: "pointer",
-                      fontSize: "18px",
-                      transition: "0.3s",
-                    }}
-                    onMouseOver={(e) =>
-                      (e.target.style.background = "#ff3b6b")
-                    }
-                    onMouseOut={(e) =>
-                      (e.target.style.background = "rgba(255, 0, 90, 0.15)")
-                    }
-                  >
-                    -
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-
-          {/* Checkout Button */}
-          <div style={{ textAlign: "center", marginTop: "40px" }}>
-            <button
-              onClick={goToCheckout}
-              style={{
-                padding: "16px 40px",
-                fontSize: "20px",
-                fontWeight: "600",
-                background: "linear-gradient(45deg, #00f2ff, #ff00aa)",
-                color: "white",
-                border: "none",
-                borderRadius: "12px",
-                cursor: "pointer",
-                boxShadow: "0 0 25px rgba(0, 242, 255, 0.5)",
-                transition: "all 0.3s ease",
-              }}
-              onMouseOver={(e) => {
-                e.target.style.boxShadow =
-                  "0 0 35px rgba(255,0,170,0.8), 0 0 50px rgba(0,242,255,0.8)";
-                e.target.style.transform = "scale(1.05)";
-              }}
-              onMouseOut={(e) => {
-                e.target.style.boxShadow = "0 0 25px rgba(0, 242, 255, 0.5)";
-                e.target.style.transform = "scale(1)";
-              }}
-            >
-              🚀 Proceed to Checkout
-            </button>
+    <div className="cart-page">
+      <div className="cart-container">
+        <div className="cart-main">
+          <div className="cart-header">
+            <h1>My Cart ({cartItems.length})</h1>
+            <div className="cart-count">
+              {cartItems.length > 0 && `${cartItems.length} item${cartItems.length > 1 ? 's' : ''}`}
+            </div>
           </div>
-        </>
-      )}
+
+          {cartItems.length === 0 ? (
+            <div className="empty-cart">
+              <h2>Your cart is empty</h2>
+              <p>Looks like you haven't added anything to your cart yet.</p>
+              <Link to="/" className="shop-btn">Continue Shopping</Link>
+            </div>
+          ) : (
+            <>
+              {cartItems.map((item) => {
+                const product = item.productId || {};
+                return (
+                  <div key={item._id} className="cart-item">
+                    <div className="cart-item-content">
+                      <img
+                        src={product.image || "https://via.placeholder.com/120"}
+                        alt={product.title || "Product"}
+                        className="product-image"
+                      />
+
+                      <div className="product-details">
+                        <Link to={`/product/${product._id}`} className="product-title">
+                          {product.title || "No Title"}
+                        </Link>
+                        <div className="product-price">
+                          ₹{product.price || "N/A"}
+                        </div>
+                        <div className="product-size">Size: M</div>
+
+                        <div className="quantity-controls">
+                          <button
+                            className="quantity-btn"
+                            onClick={() => decreaseQuantity(item._id)}
+                          >
+                            -
+                          </button>
+                          <span className="quantity-display">{item.quantity}</span>
+                          <button
+                            className="quantity-btn"
+                            onClick={() => increaseQuantity(item._id)}
+                          >
+                            +
+                          </button>
+                          <button
+                            className="remove-btn"
+                            onClick={() => removeItem(item._id)}
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </>
+          )}
+        </div>
+
+        {cartItems.length > 0 && (
+          <div className="cart-sidebar">
+            <div className="price-details">
+              <h3>Price Details</h3>
+              <div className="price-row">
+                <span>Total MRP</span>
+                <span>₹{calculateSubtotal()}</span>
+              </div>
+              <div className="price-row">
+                <span>Discount on MRP</span>
+                <span className="discount">-₹0</span>
+              </div>
+              <div className="price-row">
+                <span>Delivery Fee</span>
+                <span>₹{deliveryFee}</span>
+              </div>
+              <div className="price-row total">
+                <span>Total Amount</span>
+                <span>₹{calculateTotal() + deliveryFee}</span>
+              </div>
+              <button className="checkout-btn" onClick={goToCheckout}>
+                Place Order
+              </button>
+            </div>
+
+            <div className="delivery-info">
+              <h4>Delivery Information</h4>
+              <p>
+                {deliveryFee === 0
+                  ? "🎉 Free delivery on orders above ₹500!"
+                  : "Add ₹" + (500 - calculateTotal()) + " more for free delivery"
+                }
+              </p>
+              <p>Estimated delivery: 3-5 business days</p>
+            </div>
+          </div>
+        )}
+      </div>
+      <Footer />
     </div>
   );
 };

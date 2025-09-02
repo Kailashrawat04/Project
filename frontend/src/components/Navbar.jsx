@@ -1,37 +1,40 @@
 import React from 'react';
 import './Navbar.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = ({ searchQuery, setSearchQuery, onSearch }) => {
+  const { isAuthenticated, logout, user } = useAuth();
+  const navigate = useNavigate();
+
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       onSearch();
     }
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/signin');
+  };
+
   return (
     <nav className="navbar">
       {/* Left Logo */}
       <div className="nav-left">
-        <h2 className="logo">Shopy</h2>
+        <Link to="/Home" className="logo-link">
+          <h2 className="logo">Shopy</h2>
+        </Link>
       </div>
 
       {/* Middle Menu */}
       <ul className="nav-menu">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/shop">Shop</Link></li> 
-        <li><Link to="/about">About</Link></li>
-        <li className="dropdown">
-          <span>Students ▾</span>
-          <ul className="dropdown-menu">
-            {/* TODO: Link these pages later */}
-            <li><Link to="/students/results">Results</Link></li>
-            <li><Link to="/students/attendance">Attendance</Link></li>
-            <li><Link to="/students/library">Library</Link></li>
-            <li><Link to="/students/fees">Fees</Link></li>
-          </ul>
-        </li>
-        <li><Link to="/contact">Contact</Link></li>
+        <li><Link to="/men">Men</Link></li>
+        <li><Link to="/women">Women</Link></li>
+        <li><Link to="/kids">Kids</Link></li>
+        <li><Link to="/home-living">Home & Living</Link></li>
+        <li><Link to="/beauty">Beauty & Health</Link></li>
+        <li><Link to="/studio">Studio</Link></li>
       </ul>
 
       {/* Search Bar */}
@@ -50,6 +53,11 @@ const Navbar = ({ searchQuery, setSearchQuery, onSearch }) => {
       <div className="nav-right">
         {/* <Link to="/admin/products/add" className="btn">Add Product</Link> */}
         <Link to="/cart" className="btn cart-btn">Cart</Link>
+        {isAuthenticated && (
+          <button onClick={handleLogout} className="btn logout-btn">
+            Logout
+          </button>
+        )}
       </div>
     </nav>
   );
