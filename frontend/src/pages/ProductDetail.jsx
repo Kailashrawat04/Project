@@ -20,7 +20,7 @@ const ProductDetail = () => {
       setLoading(false);
       return;
     }
-    axios.get(`https://shopy-backend-gwyc.onrender.com/products/${productId}`)
+    axios.get(`https://project-backend-n78k.onrender.com/products/${productId}`)
       .then(res => {
         console.log("Backend response:", res.data);
         setProduct(res.data.product);
@@ -90,7 +90,7 @@ const ProductDetail = () => {
               <button 
                 onClick={async () => {
                   try {
-                    await fetch(`https://shopy-backend-gwyc.onrender.com/cart/add/${product._id}`, {
+                    await fetch(`https://project-backend-n78k.onrender.com/cart/add/${product._id}`, {
                       method: "POST",
                     });
                     alert("Product added to cart");

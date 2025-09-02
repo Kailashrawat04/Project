@@ -16,7 +16,7 @@ const SignUpPage = () => {
       password: form.password.value,
     };
     try {
-      const response = await axios.post("http://localhost:3000/SignUp/AddUser", { FormData });
+      const response = await axios.post("https://project-backend-n78k.onrender.com/SignUp/AddUser", { FormData });
       if (response.data.out === false) {
         alert(response.data.message);
         navigate("/home");

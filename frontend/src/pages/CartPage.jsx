@@ -22,7 +22,7 @@ const CartPage = () => {
 
   const fetchCartItems = async () => {
     try {
-      const res = await axios.get("https://shopy-backend-gwyc.onrender.com/cart");
+      const res = await axios.get("https://project-backend-n78k.onrender.com/cart");
       if (res.data && Array.isArray(res.data.cartItems)) {
         setCartItems(res.data.cartItems);
       } else {
@@ -36,7 +36,7 @@ const CartPage = () => {
 
   const increaseQuantity = async (itemId) => {
     try {
-      await axios.put(`http://localhost:3000/cart/increase/${itemId}`);
+      await axios.put(`https://project-backend-n78k.onrender.com/cart/increase/${itemId}`);
       fetchCartItems();
     } catch (error) {
       console.error("Error increasing quantity:", error);
@@ -45,7 +45,7 @@ const CartPage = () => {
 
   const decreaseQuantity = async (itemId) => {
     try {
-      await axios.put(`http://localhost:3000/cart/decrease/${itemId}`);
+      await axios.put(`https://project-backend-n78k.onrender.com/cart/decrease/${itemId}`);
       fetchCartItems();
     } catch (error) {
       console.error("Error decreasing quantity:", error);
@@ -54,7 +54,7 @@ const CartPage = () => {
 
   const removeItem = async (itemId) => {
     try {
-      await axios.delete(`http://localhost:3000/cart/remove/${itemId}`);
+      await axios.delete(`https://project-backend-n78k.onrender.com/cart/remove/${itemId}`);
       fetchCartItems();
     } catch (error) {
       console.error("Error removing item:", error);

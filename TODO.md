@@ -1,36 +1,38 @@
-# TODO - Myntra-like Design Implementation
+# Backend URL Update Task
 
-## Step 1: Enhance Navbar ✅
-- Refine Navbar styling to match Myntra's transparent glass effect and layout ✅
-- Add any missing menu items or dropdown enhancements ✅
-- Ensure responsive behavior ✅
+## Overview
+Update all backend API URLs in the frontend from the old URLs to the new backend URL: `https://project-backend-n78k.onrender.com`
 
-## Step 2: Improve Home Page Layout ✅
-- Add hero/banner section with promotional images
-- Change product listing to grid layout with stylish product cards ✅
-- Add hover effects, rating stars, discount badges, quick actions on product cards ✅
-- Improve filters and sorting UI ✅
+## Files to Update
 
-## Step 3: Update Styling ✅
-- Update color scheme and typography globally for vibrant fashion look ✅
-- Adjust CSS for Navbar, Home page, and product cards accordingly ✅
+### 1. frontend/src/pages/Home.jsx
+- [x] Update `http://localhost:3000/` to `https://project-backend-n78k.onrender.com/`
+- [x] Update `http://localhost:3000/cart/add/${elem._id}` to `https://project-backend-n78k.onrender.com/cart/add/${elem._id}`
 
-## Step 4: Add Footer Component ✅
-- Create footer with Myntra-like links and social media icons ✅
-- Style footer to match overall design ✅
+### 2. frontend/src/pages/ProductDetail.jsx
+- [x] Update `https://shopy-backend-gwyc.onrender.com/products/${productId}` to `https://project-backend-n78k.onrender.com/products/${productId}`
+- [x] Update `https://shopy-backend-gwyc.onrender.com/cart/add/${product._id}` to `https://project-backend-n78k.onrender.com/cart/add/${product._id}`
 
-## Step 5: Update Cart Page ✅
-- Update CartPage to match Myntra's cart design ✅
-- Add price details sidebar with delivery information ✅
-- Implement remove item functionality ✅
-- Add empty cart state ✅
+### 3. frontend/src/pages/CartPage.jsx
+- [x] Update `https://shopy-backend-gwyc.onrender.com/cart` to `https://project-backend-n78k.onrender.com/cart`
+- [x] Update `http://localhost:3000/cart/increase/${itemId}` to `https://project-backend-n78k.onrender.com/cart/increase/${itemId}`
+- [x] Update `http://localhost:3000/cart/decrease/${itemId}` to `https://project-backend-n78k.onrender.com/cart/decrease/${itemId}`
+- [x] Update `http://localhost:3000/cart/remove/${itemId}` to `https://project-backend-n78k.onrender.com/cart/remove/${itemId}`
 
-## Step 6: Testing and Responsiveness
-- Test UI on different screen sizes
-- Fix any layout or styling issues
-- Ensure smooth user experience
+### 4. frontend/src/pages/SignInPage.jsx
+- [x] Update `http://localhost:3000/SignIn/ValidateUser` to `https://project-backend-n78k.onrender.com/SignIn/ValidateUser`
 
-## Step 7: Final Review and Cleanup
-- Review all changes
-- Remove unused code or styles
-- Prepare for deployment or further feature additions
+### 5. frontend/src/pages/SignUpPage.jsx
+- [x] Update `http://localhost:3000/SignUp/AddUser` to `https://project-backend-n78k.onrender.com/SignUp/AddUser`
+
+### 6. frontend/src/pages/userspage/UserHome.jsx
+- [x] Update `http://localhost:3000/` to `https://project-backend-n78k.onrender.com/`
+
+### 7. frontend/src/pages/userspage/UserProductDetail.jsx
+- [x] Update `http://localhost:3000/products/"+productId` to `https://project-backend-n78k.onrender.com/products/"+productId`
+
+## Progress
+- [x] Plan created
+- [x] Files identified
+- [x] Updates completed
+- [ ] Testing completed

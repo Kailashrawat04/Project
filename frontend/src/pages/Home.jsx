@@ -19,7 +19,7 @@ const Home = () => {
 
   const getData = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/");
+      const res = await axios.get("https://project-backend-n78k.onrender.com/");
       setProductData(res.data.products);
     } catch (err) {
       console.log(err);
@@ -99,7 +99,7 @@ const Home = () => {
               <button
                 onClick={async () => {
                   try {
-                    await fetch(`http://localhost:3000/cart/add/${elem._id}`, {
+                    await fetch(`https://project-backend-n78k.onrender.com/cart/add/${elem._id}`, {
                       method: "POST",
                     });
                     alert("Product added to cart");
