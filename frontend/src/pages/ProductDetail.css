@@ -110,13 +110,55 @@
     flex-direction: column;
     margin: 10px;
   }
-  
+
   .left, .right {
     padding: 20px;
   }
-  
+
   .right h1 {
     font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-container {
+    padding-top: 80px;
+    padding-bottom: 20px;
+  }
+
+  .main {
+    width: 95%;
+    margin: 5px;
+  }
+
+  .left, .right {
+    padding: 15px;
+  }
+
+  .left img {
+    max-width: 250px;
+    max-height: 300px;
+  }
+
+  .right h1 {
+    font-size: 1.3rem;
+  }
+
+  .right p {
+    font-size: 0.9rem;
+  }
+
+  .right h2 {
+    font-size: 1.3rem;
+  }
+
+  .right .bottom {
+    margin-top: 15px;
+  }
+
+  .right .bottom button {
+    padding: 10px 16px;
+    font-size: 0.9rem;
   }
 }
 

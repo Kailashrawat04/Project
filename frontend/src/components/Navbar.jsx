@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Navbar.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 const Navbar = ({ searchQuery, setSearchQuery, onSearch }) => {
   const { isAuthenticated, logout, user } = useAuth();
   const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -18,6 +19,10 @@ const Navbar = ({ searchQuery, setSearchQuery, onSearch }) => {
     navigate('/signin');
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <nav className="navbar">
       {/* Left Logo */}
@@ -27,8 +32,15 @@ const Navbar = ({ searchQuery, setSearchQuery, onSearch }) => {
         </Link>
       </div>
 
+      {/* Hamburger Menu */}
+      <div className="hamburger" onClick={toggleMenu}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
       {/* Middle Menu */}
-      <ul className="nav-menu">
+      <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
         <li><Link to="/men">Men</Link></li>
         <li><Link to="/women">Women</Link></li>
         <li><Link to="/kids">Kids</Link></li>

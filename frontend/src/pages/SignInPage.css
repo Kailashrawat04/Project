@@ -7,11 +7,13 @@
   width: 100vw;
   background: none;
   font-family: "Poppins", sans-serif;
+  padding: 20px;
 }
 
 /* Card with glassmorphism */
 .signin-card {
   width: 400px;
+  max-width: 90%;
   padding: 35px;
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(12px);
@@ -23,6 +25,49 @@
   text-align: center;
 
   animation: floatCard 6s ease-in-out infinite;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .signin-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 25px;
+  }
+
+  .signin-card h2 {
+    font-size: 1.8rem;
+  }
+
+  .signin-form input {
+    font-size: 0.95rem;
+  }
+
+  .signin-form button {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .signin-wrapper {
+    padding: 10px;
+  }
+
+  .signin-card {
+    padding: 20px;
+  }
+
+  .signin-card h2 {
+    font-size: 1.6rem;
+  }
+
+  .signin-form input {
+    padding: 10px;
+  }
+
+  .signin-form button {
+    padding: 10px;
+  }
 }
 
 @keyframes floatCard {

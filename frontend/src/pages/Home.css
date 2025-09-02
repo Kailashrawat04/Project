@@ -221,3 +221,43 @@ button:hover {
     margin: 15px 0 25px 0;
   }
 }
+
+@media (max-width: 320px) {
+  .container {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    padding: 10px;
+    gap: 12px;
+  }
+
+  .top img {
+    height: 180px;
+  }
+
+  .bottom {
+    padding: 10px 12px;
+  }
+
+  .bottom a {
+    font-size: 0.9rem;
+  }
+
+  .bottom p {
+    font-size: 0.75rem;
+    height: 30px;
+  }
+
+  .bottom h2 {
+    font-size: 1rem;
+    margin: 8px 0;
+  }
+
+  button {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+
+  .wishlist-btn {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+}
